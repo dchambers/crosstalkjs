@@ -1,6 +1,8 @@
 # CrossTalkJs
 
-CrossTalkJs is useful anywhere you are constrained to using `postMessage()` to communicate across origins. For example, when communicating to:
+CrossTalkJs is useful anywhere you are constrained to using `postMessage()` to communicate across origins.
+
+For example, when communicating to:
 
   * An external window
   * An internal frame
