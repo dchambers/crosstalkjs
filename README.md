@@ -1,4 +1,4 @@
-CrossTalkJs facilitates rich inter-window and inter-frame communication.
+# CrossTalkJs
 
 CrossTalkJs is useful anywhere you are constrained to using `postMessage()` to communicate across origins. For example, when communicating to:
 
