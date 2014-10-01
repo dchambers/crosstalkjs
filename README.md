@@ -29,7 +29,7 @@ CrossTalkJs solves this as follows:
   1. Your application can register as many _service_ objects as necessary to expose all remotely accessible functionality within the local window.
   2. Remote windows communicate asynchronously with the _service_ objects by being given a local _proxy_ object that has exactly the same shape as the remote _service_ object they are proxying to, but which returns a _promise_ to deal with any asynchronicity.
   3. The methods on _service_ objects can receive any data that can be serialized using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/The_structured_clone_algorithm), as is the case for `window.postMessage()`.
-  4. Methods can also be passed references to local _call-back_ functions & objects, without the developer having to write any complex marshalling code.
+  4. Methods can also be passed references to local _call-back_ functions, without the developer having to write any complex management or marshalling code.
 
 Let's take a concrete example. Suppose your application has the following _user-service_ that can be used to retrieve user credentials for a given user:
 
@@ -128,7 +128,7 @@ Regardless of which flavour of _promise_ you return from your _service_ object, 
 
 ## Callback Functions
 
-Sometimes it's useful to be able to provide references of your local objects and functions to a remote _service_, so the service can issue call-backs as events occur. A good example of this would a message-hub service using the _emitter_ pattern where call-back functions are provided to the remote-side.
+Sometimes it's useful to be able to provide references of your local functions to a remote _service_, so the service can issue call-backs as events occur. A good example of this would a _message-hub_ service using the _emitter_ pattern, where references to call-back functions need to be provided to the remote-side.
 
 For example:
 
@@ -142,61 +142,12 @@ eventHub.on('user-joins', function(username) {
 eventHub.on('user-leaves', function(username) {
 	console.log("user '" username "' has left the session.");
 });
-
 ```
 
 Since functions can never be passed using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/The_structured_clone_algorithm), any arguments of type `Function` are always considered to be call-back functions, with CrossTalkJs automatically marshalling messages to the them rather than passing them to the remote side.
 
-Like _services_, call-back functions can provide return values which are made available to the originating _service_ using a _promise_.
+Like _services_, call-back functions can provide return values which are made available to the originating _service_ using a _promise_. This can be used to implement much richer call-back functionality than for our simple _emitter_ use-case.
 
-
-## Callback Objects
-
-An object argument can be denoted as a call-back object using the ` crosstalk.objectRef()` method. A concrete example of the need for this might be an _app_ that needs the ability to pop-out the _panels_ within the _app_ to external windows, since each _panel_ object has a rich interface that would be unwieldy to model using functions alone.
-
-For example, given a `Panel` class that looks like this:
-
-```
-function Panel() {
-}
-
-Panel.prototype.resizeTo = function(width, height) {
-	// do stuff...
-};
-
-Panel.prototype.getSerializedState = function() {
-	// do stuff...
-};
-
-Panel.prototype.onPopIn = function() {
-	// do stuff...
-};
-
-Panel.prototype.onPopOut = function() {
-	// do stuff...
-};
-```
-
-and a `PanelManager` class that looks like this:
-
-```
-function PanelManager() {
-	this.panels = [];
-}
-
-WorkDispatcher.prototype.registerPanel = function(panel) {
-	this.panels.add(panel);
-};
-```
-
-then we could write the following code to be run in the pop-out windows:
-
-```
-var panelManager = remoteRegistry.serviceProxy('panel-manager');
-panelManager.registerPanel(crosstalk.objectRef(panel));
-```
-
-In fact, call-back objects can be modelled as named services, where one window provides a uniquely named service identifier to some remote service for call-back purposes. However, since this approach requires management code to be maintained by each application, CrossTalkJs provides the `crosstalk.objectRef()` method as a convenience.
 
 
 ## Transferable Objects
