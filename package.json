@@ -1,0 +1,43 @@
+{
+	"name": "crosstalkjs",
+	"version": "0.0.0",
+	"description": "CrossTalkJs facilitates rich inter-window and inter-frame communication",
+	"main": "lib/crosstalk.js",
+	"devDependencies": {
+		"mkdirp": "0.5.0",
+		"ncp": "1.0.0",
+		"browserify": "5.12.1",
+		"jasmine-node": "2.0.0-beta4",
+		"karma": "0.12.23",
+		"karma-chrome-launcher": "0.1.4",
+		"karma-firefox-launcher": "0.1.3",
+		"karma-jasmine": "0.2.0",
+		"npm-watch": "0.0.0"
+	},
+	"watch": {
+		"prepublish": "{lib,spec,scripts}/**/*.js"
+	},
+	"scripts": {
+		"prepublish": "node --harmony scripts/prepublish.js",
+		"postpublish": "node --harmony scripts/postpublish.js",
+		"test": "node --harmony spec/spec.js",
+		"test-browser": "node --harmony ./node_modules/karma/bin/karma start karma-conf.js",
+		"watch": "npm-watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/dchambers/crosstalkjs.git"
+	},
+	"keywords": [
+		"window.postMessage()",
+		"window",
+		"frame",
+		"iframe",
+		"Promises"
+	],
+	"author": "Dominic Chambers",
+	"license": "Apache License, Version 2.0",
+	"bugs": {
+		"url": "https://github.com/dchambers/crosstalkjs/issues"
+	}
+}
