@@ -157,7 +157,7 @@ For performance reasons, `window.postMessage()` supports the idea of _transferab
 For example:
 
 ```
-worker.doWork(crosstalk.objectRef(binaryData));
+worker.doWork(crosstalk.transferableObj(binaryData));
 ```
 
 ## Web Workers
