@@ -169,3 +169,26 @@ The `Worker.postMessage()` method is subtly different from the `Window.postMessa
 
 Despite these differences, CrossTalkJs's `crosstalk.createRegistry()` and `crosstalk.accessRegistry()` methods can be used with _worker_ references in exactly the same way, as they are otherwise used with _window_ references.
 
+
+## Proxy Typing
+
+When you request a proxy for a remote service with the `serviceProxy()` method it's also possible to specify the type you expect the remote service to have, where a shape-based type check will be performed on your behalf.
+
+For example:
+
+```
+var obj = registry.serviceProxy('user-service', UserService);
+```
+
+Although you could do a shape-based check yourself (e.g. using `topiarist.fulfills()` from the [topiarist](https://github.com/BladeRunnerJS/topiarist) library), this has the additional benefit that the proxy object returned to you will actually extend the given class, so that your the proxy will pass any subsequent `instanceof` checks.
+
+This code snippet would log `success!` to the console for example:
+
+```
+var obj = registry.serviceProxy('user-service', UserService);
+
+if(obj instanceof UserService) {
+	console.log('success!');
+}
+```
+
