@@ -1,4 +1,3 @@
-var crosstalk = require('../../lib/crosstalk.js');
-
-require('./first-test.js');
+require('./create-registry.js');
+require('./register-service.js');
 
