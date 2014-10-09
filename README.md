@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dchambers/crosstalkjs.png)](https://travis-ci.org/dchambers/crosstalkjs)
+
 # CrossTalkJs
 
 CrossTalkJs is useful anywhere you are constrained to using `postMessage()` to communicate across origins.
