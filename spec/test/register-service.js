@@ -1,10 +1,11 @@
 var crosstalk = require('../../lib/crosstalk');
+var ws = require('./window-service');
 
 describe('registry.registerService()', function() {
 	var registry;
 
 	beforeEach(function() {
-		registry = crosstalk.createRegistry(window, ['*']);
+		registry = crosstalk.createRegistry(ws.window, ['*']);
 	});
 
 	it('requires a serviceName argument', function() {

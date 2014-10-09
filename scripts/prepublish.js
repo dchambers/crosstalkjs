@@ -9,7 +9,7 @@ mkdirp('dist/jasmine-2.0.0', function(err) {
 	}
 	else {
 		createBundle('dist/crosstalk.js', ['./lib/global-crosstalk.js']);
-		createBundle('dist/crosstalk-spec-tests.js', ['./spec/tests/tests.spec.js']);
+		createBundle('dist/crosstalk-spec-tests.js', ['./spec/test/tests.spec.js']);
 
 		ncp('node_modules/jasmine-node/node_modules/jasmine-reporters/lib/jasmine-2.0.0', 'dist/jasmine-2.0.0', function(err) {
 			if(err) {

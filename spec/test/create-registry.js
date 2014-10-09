@@ -1,4 +1,5 @@
 var crosstalk = require('../../lib/crosstalk');
+var ws = require('./window-service');
 
 describe('crosstalk.createRegistry()', function() {
 	it('requires a target argument to be provided', function() {
@@ -15,24 +16,24 @@ describe('crosstalk.createRegistry()', function() {
 
 	it('requires a list of acceptable origins to be provided', function() {
 		expect(function() {
-			crosstalk.createRegistry(window);
+			crosstalk.createRegistry(ws.window);
 		}).toThrow(Error('validOrigins argument must be provided'));
 	});
 
 	it('requires a list of acceptable origins to be provided', function() {
 		expect(function() {
-			crosstalk.createRegistry(window, '*');
+			crosstalk.createRegistry(ws.window, '*');
 		}).toThrow(TypeError('validOrigins argument must be a list'));
 	});
 
 	it('requires the list of acceptable origins to be non-empty', function() {
 		expect(function() {
-			crosstalk.createRegistry(window, []);
+			crosstalk.createRegistry(ws.window, []);
 		}).toThrow(Error('the validOrigins list must contain at least one item'));
 	});
 
 	it('returns a registry object if valid arguments are provided', function() {
-		expect(crosstalk.createRegistry(window, ['*'])).toBeDefined();
+		expect(crosstalk.createRegistry(ws.window, ['*'])).toBeDefined();
 	});
 });
 
