@@ -67,13 +67,17 @@ then these windows can make use of _user-service_ as follows:
 
 ```
 var remoteRegistry = crosstalk.accessRegistry(window.opener, 'http://foo.com');
-var userService = remoteRegistry.serviceProxy('user-service');
+remoteRegistry.connect().then(function() {
+	var userService = remoteRegistry.serviceProxy('user-service');
 
-userService.requestUserCredentials('Bob').then(function(userCredentials) {
-	console.log('Bob's credentials are ' + JSON.stringify(userCredentials));
+	userService.requestUserCredentials('Bob').then(function(userCredentials) {
+		console.log('Bob's credentials are ' + JSON.stringify(userCredentials));
+	}, function(errorMessage) {
+		console.error('Unable to retrieve Bob's user credentials: ' + errorMessage)
+	});
 }, function(errorMessage) {
-	console.error('Unable to retrieve Bob's user credentials: ' + errorMessage)
-});
+	console.error('Unable to access the remote registry: ' + errorMessage)
+})
 ```
 
 You will notice that a _promise_ has been returned by the local _proxy_ object, even though the remote _service_ object was written to be fully synchronous.
@@ -179,7 +183,7 @@ When you request a proxy for a remote service with the `serviceProxy()` method i
 For example:
 
 ```
-var obj = registry.serviceProxy('user-service', UserService);
+var obj = remoteRegistry.serviceProxy('user-service', UserService);
 ```
 
 Although you could do a shape-based check yourself (e.g. using `topiarist.fulfills()` from the [topiarist](https://github.com/BladeRunnerJS/topiarist) library), this has the additional benefit that the proxy object returned to you will actually extend the given class, so that your the proxy will pass any subsequent `instanceof` checks.
@@ -187,7 +191,7 @@ Although you could do a shape-based check yourself (e.g. using `topiarist.fulfil
 This code snippet would log `success!` to the console for example:
 
 ```
-var obj = registry.serviceProxy('user-service', UserService);
+var obj = remoteRegistry.serviceProxy('user-service', UserService);
 
 if(obj instanceof UserService) {
 	console.log('success!');

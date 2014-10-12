@@ -29,7 +29,7 @@ describe('registry.registerService()', function() {
 	it('requires the service argument to be an object', function() {
 		expect(function() {
 			registry.registerService('my-service', function() {});
-		}).toThrow(TypeError('service argument must be an object'));
+		}).toThrow(new TypeError('service argument must be an object'));
 	});
 
 	it('requires the serviceName argument to be a unique identifier', function() {
