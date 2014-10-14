@@ -1,5 +1,6 @@
 var crosstalk = require('../../lib/crosstalk');
 var ws = require('./window-service');
+var should = require('chai').should();
 
 describe('remoteRegistry.connect()', function() {
 	// TODO: replace the window-service with `MockPostableWindow` and `MockPostableWorker` objects that simulate the browser, and let me test origin failures properly
@@ -14,8 +15,8 @@ describe('remoteRegistry.connect()', function() {
 			// TODO...
 		})
 
-//		expect(function() {
-//		}).toThrow(Error('window argument must be provided'));
+//		(function() {
+//		}).should.throw('window argument must be provided');
 	});
 });
 
