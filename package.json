@@ -4,12 +4,13 @@
 	"description": "CrossTalkJs facilitates rich inter-window and inter-frame communication",
 	"main": "lib/crosstalk.js",
 	"dependencies": {
-		"topiarist": "0.1.0",
-		"secure-random": "1.1.1"
+		"topiarist": "~0.1",
+		"secure-random": "~1.1"
 	},
 	"devDependencies": {
-		"dchambers-lib-build-tool": "0.x",
-		"chai": "1.9.2"
+		"dchambers-lib-build-tool": "~0.1",
+		"chai": "~1.9",
+		"npm-watch": "~0.0"
 	},
 	"watch": {
 		"prepublish": "{lib,spec,scripts}/**/*.js"
