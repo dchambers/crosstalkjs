@@ -4,6 +4,7 @@
 	"description": "CrossTalkJs facilitates rich inter-window and inter-frame communication",
 	"main": "lib/crosstalk.js",
 	"dependencies": {
+		"typester": "~0.2",
 		"topiarist": "~0.1",
 		"secure-random": "~1.1"
 	},

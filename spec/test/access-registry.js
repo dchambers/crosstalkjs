@@ -12,7 +12,7 @@ describe('crosstalk.accessRegistry()', function() {
 	it('only allows registries to be accessed on windows, frames, iframes and web-workers', function() {
 		(function() {
 			crosstalk.accessRegistry({}, '*');
-		}).should.throw('target argument must be a window, frame, iframe or web-worker');
+		}).should.throw('target argument must fulfill Postable');
 	});
 
 	it('requires a targetOrigin argument', function() {
@@ -24,7 +24,7 @@ describe('crosstalk.accessRegistry()', function() {
 	it('requires the targetOrigin argument to be a string', function() {
 		(function() {
 			crosstalk.accessRegistry(ws.window, true);
-		}).should.throw('targetOrigin argument must be a string');
+		}).should.throw('targetOrigin argument must be a String');
 	});
 
 	it('returns a remote registry object if valid arguments are provided', function() {

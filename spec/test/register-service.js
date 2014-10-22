@@ -18,7 +18,7 @@ describe('registry.registerService()', function() {
 	it('requires the serviceName argument to be a string', function() {
 		(function() {
 			registry.registerService(42, {});
-		}).should.throw('serviceName argument must be a string');
+		}).should.throw('serviceName argument must be a String');
 	});
 
 	it('requires a service argument to be provided', function() {
